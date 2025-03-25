@@ -19,8 +19,7 @@ const ProfilePage: React.FC = () => {
 	}, [jumpToPage]);
 
 	const logOut = () => {
-		logOutReq();
-		jumpToPage('/sign-in');
+		logOutReq().then(() => jumpToPage('/home'));
 	};
 
 	return (
@@ -31,7 +30,7 @@ const ProfilePage: React.FC = () => {
 					Logout
 				</button>
 			</div>
-			<h4>Look at all the people who registered..</h4>
+			<h4>Look at all the nice people who registered..</h4>
 			<div className="users-list">
 				{users.map((user) => (
 					<div key={user.id} className="user-view">

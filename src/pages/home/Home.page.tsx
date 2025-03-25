@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import './Home.css';
+import './Home.page.css';
 
 const HomePage: React.FC = () => {
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	useEffect(() => {
+		const refreshToken = localStorage.getItem('easygen-app-refresh-token');
+		if (refreshToken?.length) setIsLoggedIn(true);
+	}, []);
+
 	return (
 		<div className="home">
 			<div className="welcome">
@@ -34,12 +41,29 @@ const HomePage: React.FC = () => {
 				</p>
 
 				<div className="home-page-options">
-					<Link to={{ pathname: '/register' }}>
-						<button className="primary-button">Register</button>
-					</Link>
-					<Link to={{ pathname: '/sign-in' }}>
-						<button className="secondary-button">Sign in</button>
-					</Link>
+					{isLoggedIn ? (
+						<></>
+					) : (
+						<Link to={{ pathname: '/register' }}>
+							<button className="primary-button">Register</button>
+						</Link>
+					)}
+
+					{isLoggedIn ? (
+						<></>
+					) : (
+						<Link to={{ pathname: '/sign-in' }}>
+							<button className="secondary-button">Sign in</button>
+						</Link>
+					)}
+
+					{isLoggedIn ? (
+						<Link to={{ pathname: '/profile' }}>
+							<button className="primary-button">Profile</button>
+						</Link>
+					) : (
+						<></>
+					)}
 				</div>
 			</div>
 		</div>
