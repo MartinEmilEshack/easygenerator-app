@@ -19,8 +19,8 @@ export const EmailField: React.FC<{
 	};
 
 	return (
-		<div className="input-container">
-			<div className="email-container">
+		<div className="email-field-container">
+			<div className="email-input-container">
 				<input
 					type="email"
 					placeholder="Enter your email"

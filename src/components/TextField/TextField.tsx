@@ -19,8 +19,8 @@ export const TextField: React.FC<{
 	};
 
 	return (
-		<div className="input-container">
-			<div className="text-container">
+		<div className="text-field-container">
+			<div className="text-input-container">
 				<input
 					type="text"
 					placeholder={placeHolder}

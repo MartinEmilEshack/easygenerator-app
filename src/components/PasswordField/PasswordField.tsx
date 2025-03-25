@@ -28,8 +28,8 @@ export const PasswordField: React.FC<{
 	};
 
 	return (
-		<div className="input-container">
-			<div className="password-container">
+		<div className="password-field-container">
+			<div className="password-input-container">
 				<input
 					type={showPassword ? 'text' : 'password'}
 					placeholder={placeHolder}
