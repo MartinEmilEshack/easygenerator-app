@@ -79,13 +79,13 @@ const RegisterForm: React.FC = () => {
 				<TextField
 					onChange={validateName}
 					placeHolder="Username"
-					showError={clickedOnce}
+					showError={(valid) => !valid && clickedOnce}
 					minLength={3}
 					errorText="Sorry Dr. Oz your name can't be shorter than three charecters"
 				/>
 				<PasswordField
 					onChange={validatePassword}
-					showError={clickedOnce}
+					showError={(valid) => !valid && clickedOnce}
 					errorText="A sophisticated person as yourself should have a password 8 charecter long, with at least 1 special charecter, 1 digit, 1 upper case and 1 lowercase letter"
 				/>
 				<div className="register-options">

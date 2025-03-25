@@ -5,7 +5,7 @@ import './PasswordField.css';
 
 export const PasswordField: React.FC<{
 	onChange: (password: string, valid: boolean) => void;
-	showError: boolean;
+	showError: (valid: boolean) => boolean;
 	errorText: string;
 	placeHolder?: string;
 }> = ({
@@ -48,7 +48,7 @@ export const PasswordField: React.FC<{
 					)}
 				</button>
 			</div>
-			<ValidationError show={!valid && showError} errorText={errorText} />
+			<ValidationError show={showError(valid)} errorText={errorText} />
 		</div>
 	);
 };

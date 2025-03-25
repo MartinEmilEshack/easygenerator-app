@@ -6,7 +6,8 @@ export const EmailField: React.FC<{
 	onChange: (email: string, valid: boolean) => void;
 	showError: (valid: boolean) => boolean;
 	errorText: string;
-}> = ({ onChange, showError, errorText }) => {
+	noValidation?: boolean;
+}> = ({ onChange, showError, errorText, noValidation = false }) => {
 	const [valid, setValid] = useState(false);
 
 	const validateEmail = (email: string) => {
@@ -28,7 +29,10 @@ export const EmailField: React.FC<{
 					onChange={(e) => validateEmail(e.target.value)}
 				></input>
 			</div>
-			<ValidationError show={showError(valid)} errorText={errorText} />
+			<ValidationError
+				show={showError(valid) || noValidation}
+				errorText={errorText}
+			/>
 		</div>
 	);
 };

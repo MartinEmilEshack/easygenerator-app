@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import logInReq from '../../requests/login-in.req';
 import { EmailField } from '../EmailField';
 import { PasswordField } from '../PasswordField';
+import ValidationError from '../ValidationError/ValidationError';
 import './LoginForm.css';
 
 const LoginForm: React.FC = () => {
@@ -15,15 +16,24 @@ const LoginForm: React.FC = () => {
 	const [vaildationErrors, setVaildationErrors] = useState({
 		email: !email.length,
 		password: !password,
+		credentials: false,
 	});
 
 	const validateEmail = (email: string, valid: boolean) => {
-		setVaildationErrors({ ...vaildationErrors, email: valid });
+		setVaildationErrors({
+			...vaildationErrors,
+			email: valid,
+			credentials: false,
+		});
 		setEmail(email);
 	};
 
 	const validatePassword = (password: string, valid: boolean) => {
-		setVaildationErrors({ ...vaildationErrors, password: valid });
+		setVaildationErrors({
+			...vaildationErrors,
+			password: valid,
+			credentials: false,
+		});
 		setPassword(password);
 	};
 
@@ -32,7 +42,8 @@ const LoginForm: React.FC = () => {
 		setClickedOnce(true);
 		if (vaildationErrors.email && vaildationErrors.password) {
 			const response = await logInReq({ email, password });
-			if (response.success) jumpToPage('/profile');
+			if (response.statusCode === 201) jumpToPage('/profile');
+			else setVaildationErrors({ ...vaildationErrors, credentials: true });
 		}
 	};
 
@@ -40,6 +51,10 @@ const LoginForm: React.FC = () => {
 		<div className="login-form">
 			<form className="forms" onSubmit={handleSubmit}>
 				<h2>Login</h2>
+				<ValidationError
+					show={vaildationErrors.credentials}
+					errorText="Invalid email or password, We're not sure who you are"
+				/>
 				<EmailField
 					showError={(valid) => !valid && clickedOnce}
 					errorText="Are you sure this is an email ? I don't think so !"
@@ -47,7 +62,7 @@ const LoginForm: React.FC = () => {
 				/>
 				<PasswordField
 					onChange={validatePassword}
-					showError={clickedOnce}
+					showError={() => false}
 					errorText="A sophisticated person as yourself should have a password 8 charecter long, with at least 1 special charecter, 1 digit, 1 upper case and 1 lowercase letter"
 				/>
 				<Link to={{ pathname: '/forgot-password' }}>Forgot password</Link>

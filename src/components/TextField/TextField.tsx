@@ -4,11 +4,19 @@ import './TextField.css';
 
 export const TextField: React.FC<{
 	onChange: (text: string, valid: boolean) => void;
-	showError: boolean;
+	showError: (valid: boolean) => boolean;
+	noValidation?: boolean;
 	placeHolder: string;
 	errorText?: string;
 	minLength?: number;
-}> = ({ onChange, placeHolder, showError, errorText = '', minLength = 0 }) => {
+}> = ({
+	onChange,
+	placeHolder,
+	showError,
+	errorText = '',
+	minLength = 0,
+	noValidation = false,
+}) => {
 	const [valid, setValid] = useState(false);
 
 	const validateText = (text: string) => {
@@ -28,7 +36,10 @@ export const TextField: React.FC<{
 					onChange={(e) => validateText(e.target.value)}
 				></input>
 			</div>
-			<ValidationError show={!valid && showError} errorText={errorText} />
+			<ValidationError
+				show={showError(valid) || noValidation}
+				errorText={errorText}
+			/>
 		</div>
 	);
 };

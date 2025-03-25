@@ -19,7 +19,7 @@ const ResetPasswordForm: React.FC = () => {
 	});
 
 	const validatePassword = (password: string, valid: boolean) => {
-		setVaildationErrors({ ...vaildationErrors, password: valid });
+		setVaildationErrors({ ...vaildationErrors, password: !valid });
 		setPassword(password);
 	};
 
@@ -29,7 +29,7 @@ const ResetPasswordForm: React.FC = () => {
 	) => {
 		setVaildationErrors({
 			...vaildationErrors,
-			confirmPassword: valid && password === confirmPassword,
+			confirmPassword: !valid || password !== confirmPassword,
 		});
 		setConfirmPassword(confirmPassword);
 	};
@@ -37,7 +37,7 @@ const ResetPasswordForm: React.FC = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setClickedOnce(true);
-		if (vaildationErrors.password && vaildationErrors.confirmPassword) {
+		if (!vaildationErrors.password && !vaildationErrors.confirmPassword) {
 			const response = await resetPasswordReq({
 				resetToken: searchParams.get('token') ?? '',
 				password,
@@ -52,12 +52,15 @@ const ResetPasswordForm: React.FC = () => {
 				<h2>Reset Password</h2>
 				<PasswordField
 					onChange={validatePassword}
-					showError={clickedOnce}
+					showError={(valid) => !valid && clickedOnce}
 					errorText="A sophisticated person as yourself should have a password 8 charecter long, with at least 1 special charecter, 1 digit, 1 upper case and 1 lowercase letter"
 				/>
 				<PasswordField
 					onChange={validateConfirmPassword}
-					showError={clickedOnce}
+					showError={(valid) =>
+						(!valid && clickedOnce) ||
+						(vaildationErrors.confirmPassword && clickedOnce)
+					}
 					placeHolder="Confirm your password"
 					errorText="This must be the same as the password, I hope you didn't already forgot it !"
 				/>
