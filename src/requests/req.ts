@@ -1,6 +1,8 @@
 import { ApiResponse } from '../@types/response';
 
-const baseUrl = 'http://localhost:3001';
+const baseUrl = process.env.REACT_APP_API_URL;
+
+console.log(baseUrl);
 
 const apiRequest = async <T>(reqData: {
 	method: 'GET' | 'POST' | 'PATCH' | 'DELETE';

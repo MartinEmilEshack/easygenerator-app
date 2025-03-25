@@ -29,8 +29,8 @@ const HomePage: React.FC = () => {
 					talking about unconditional registration ❤️ .. I'm saying we as
 					in team but actually I'm a one person, You won't find my email
 					because I'm not registered but that shouldn't influence you, I'm
-					on a services free diet.. but you ! no you look great 😉 you should
-					definitely register !
+					on a services free diet.. but you ! no you look great 😉 you
+					should definitely register !
 				</p>
 
 				<div className="home-page-options">

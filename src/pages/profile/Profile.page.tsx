@@ -16,7 +16,7 @@ const ProfilePage: React.FC = () => {
 			if (resp.statusCode === 403) jumpToPage('/sign-in');
 			else setUsers(resp.data?.users ?? []);
 		});
-	}, []);
+	}, [jumpToPage]);
 
 	const logOut = () => {
 		logOutReq();

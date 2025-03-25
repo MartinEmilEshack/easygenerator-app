@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import forgotPasswordReq from '../../requests/forgot-password.req';
 import { EmailField } from '../EmailField';
 
 import './ForgotPasswordForm.css';
 
 const ForgetPasswordForm: React.FC = () => {
-	const jumpToPage = useNavigate();
-
 	const [email, setEmail] = useState<string>('');
 	const [resetPasswordLink, setResetPasswordLink] = useState('');
 

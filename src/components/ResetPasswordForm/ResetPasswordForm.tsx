@@ -7,7 +7,7 @@ import './ResetPasswordForm.css';
 
 const ResetPasswordForm: React.FC = () => {
 	const jumpToPage = useNavigate();
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 
 	const [password, setPassword] = useState<string>('');
 	const [confirmPassword, setConfirmPassword] = useState<string>('');
